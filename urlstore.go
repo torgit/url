@@ -33,12 +33,12 @@ var errorFailToFind = fmt.Errorf("failed to find url")
 var errorFailToSave = fmt.Errorf("failed to save url")
 
 func newDbStore() (*dbStore, error) {
-	mysqlIp := os.Getenv("MYSQLIP")
-	mysqlPort := os.Getenv("MYSQLPORT")
-	mysqlUser := os.Getenv("MYSQLUSER")
-	mysqlPassword := os.Getenv("MYSQLPASSWORD")
+	mysqlAddr := os.Getenv("MYSQL_ADDRESS")
+	mysqlPort := os.Getenv("MYSQL_PORT")
+	mysqlUser := os.Getenv("MYSQL_USER")
+	mysqlPassword := os.Getenv("MYSQL_PASSWORD")
 
-	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/taskworld", mysqlUser, mysqlPassword, mysqlIp, mysqlPort)
+	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/taskworld", mysqlUser, mysqlPassword, mysqlAddr, mysqlPort)
 
 	db, err := sql.Open("mysql", connectionString)
 
