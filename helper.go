@@ -20,10 +20,14 @@ func generateNewUrl(urlStore urlStore, originalUrl string) (url, error) {
 }
 
 func splitUrlDomain(s string) (string, string) {
-	re := regexp.MustCompile(`^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/?`)
-	domain := re.FindString(s)
-	path := re.ReplaceAllString(s, "")
-	return domain, path
+	urlRegex := regexp.MustCompile(`^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/?`)
+	trailingSlashRegex := regexp.MustCompile(`.*/$`)
+	domain := urlRegex.FindString(s)
+	path := urlRegex.ReplaceAllString(s, "")
+	if trailingSlashRegex.MatchString(domain) {
+		return domain, path
+	}
+	return domain + "/", path
 }
 
 func getIdFromPath(path string) (int, error) {
