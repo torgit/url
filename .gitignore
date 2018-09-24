@@ -1,0 +1,4 @@
+prometheus_data/*
+url2.exe
+grafana_data/*
+.DS_Store
